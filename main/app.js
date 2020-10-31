@@ -12,7 +12,7 @@ function removeOrderItem(orderInfo, position) {
     }
 
     if(position < 0 || position > orderInfo.items.length - 1) {
-        throw new Error("Malformed position");
+        throw new Error("Error regarding the position");
     }
 
     let value = orderInfo.items[position].price * orderInfo.items[position].quantity;
