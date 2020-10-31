@@ -1,7 +1,8 @@
 function removeOrderItem(orderInfo, position) {
-    if(!orderInfo["items"] instanceof Array) {
-        throw new Error("Items should be an array");
+    if(!Array.isArray(orderInfo.items)) {
+        throw new Error('Items should be an array');
     }
+
 
     let checkItem
     for(let i=0; i<orderInfo.items.length; i++) {
@@ -12,21 +13,16 @@ function removeOrderItem(orderInfo, position) {
     }
 
     if(position < 0 || position > orderInfo.items.length - 1) {
-        throw new Error("Error regarding the position");
+        throw new Error("Invalid position");
     }
 
     let value = orderInfo.items[position].price * orderInfo.items[position].quantity;
-    orderInfo.total += value
+    orderInfo.total -= value
 
-    let returnedOrderInfo 
-    let j = 0
-    for(let i=0; i<orderInfo.items.length; i++) {
-        if(i != position) {
-            returnedOrderInfo[j] = orderInfo.items[i]
-            j += 1
-        }
-    }
-    return returnedOrderInfo
+    orderInfo.items.splice(position, 1)
+
+    return orderInfo
+
 }
 
 const app = {
